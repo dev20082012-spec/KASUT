@@ -1,0 +1,15 @@
+.env
+.env.local
+.env.*.local
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+logs/
+.DS_Store
+.vscode/
+*.swp
+test_output.txt
+test_log.txt
+coverage/
