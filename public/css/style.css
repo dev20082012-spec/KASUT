@@ -1,0 +1,203 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+/* NAVBAR */
+
+.navbar {
+    height: 5rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ebebeb;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Airbnb-style brand */
+.navbar-brand.brand {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #FF385C;
+    /* Airbnb's exact coral-red */
+    font-size: 1.7rem;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+
+/* FOOTER */
+
+footer {
+    background-color: #222222;
+    margin-top: 3rem;
+}
+
+.f-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 2.2rem 1rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ---- Social icons row ---- */
+.f-info-social {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+}
+
+.f-info-social i {
+    font-size: 1.1rem;
+    color: #ffffff;
+    background-color: #3a3a3a;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.f-info-social i:hover {
+    background-color: #FF385C;
+    transform: translateY(-2px);
+}
+
+/* ---- Divider ---- */
+.f-info::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #3a3a3a;
+    margin: 0.6rem 0 1rem;
+}
+
+/* ---- Brand / copyright row ---- */
+.f-info-brands {
+    width: 100%;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #aaaaaa;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    margin-bottom: 0.6rem;
+}
+
+/* ---- Links row ---- */
+.f-info-links {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.f-info-links a {
+    color: #aaaaaa;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+/* animated underline on hover */
+.f-info-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: #FF385C;
+    transition: width 0.25s ease;
+}
+
+.f-info-links a:hover {
+    color: #ffffff;
+}
+
+.f-info-links a:hover::after {
+    width: 100%;
+}
+
+
+
+/* CARDS */
+.card {
+    border: none;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    margin-bottom: 1rem;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+
+.listings-links {
+    text-decoration: none;
+}
+
+/* OVERLAY EFFECT */
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: rgba(0, 0, 0, 0.468);
+}
+
+/* NEW PAGE + EDIT PAGE */
+.add-btn,
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* SHOW PAGE */
+.show-img {
+    height: 30vh;
+}
+
+.btns {
+    display: flex;
+}
+
+.show-card {
+    padding-left: 0;
+    padding-right: 0;
+}

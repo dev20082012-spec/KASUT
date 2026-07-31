@@ -1,0 +1,46 @@
+<% layout("/layouts-ejs_mate/boilerplate") %>
+
+<div class="row mt-3">
+
+<div class = "col-8 offset-2">
+
+<body>
+     <h3>Edit listings</h3>
+    <Form method="POST" action="/listings/<%= listing.id %>?_method=PUT">
+
+        <div class="mb-3">
+        <label class="title" class="form-label">Title : </label>
+        <input name = "listing[title]" value="<%= listing.title %>" type="text" class="form-control">
+        </div>
+
+        <div class="mb-3">
+        <label class="description" class="form-label">Description : </label>
+        <textarea name="listing[description]" class="form-control"><%= listing.description %></textarea>
+        </div>
+
+
+        <div class="mb-3 ">
+        <label class="image" class="form-label">Image : </label>
+        <input name="listing[image][url]" value="<%= listing.image.url %>" placeholder="enter image URL/LINK" type="text" class="form-control">
+        </div>
+<div class="row">
+        <div class="mb-3 col-md-4">
+        <label class="price" class="form-label">Price : </label>
+        <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control">
+        </div>
+
+        <div class="mb-3 col-md-8">
+        <label class="country" class="form-label">Country : </label>
+        <input name = "listing[country]" value="<%= listing.country %>" placeholder="enter country" type="text" class="form-control">
+        </div>
+</div>
+        <div class="mb-3">
+        <label class="location" class="form-label">Location : </label>
+        <input name = "listing[location]" value="<%= listing.location %>" placeholder="entre location" type="text" class="form-control">
+        </div>
+        <button class="btn btn-dark edit-btn mt-3">Add</button>
+    </Form>
+</body>
+
+</div>
+</div>
