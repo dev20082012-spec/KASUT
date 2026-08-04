@@ -6,14 +6,16 @@
 
 <body>
     <h3>Create a new listings</h3>
-    <Form method="POST" action="/listings">
+    <Form method="POST" action="/listings" novalidate class="needs-validation"> <!-- the novalidate [and aaga ka part bhi]is the bootstrap validation property for custom styling -->
         <div class="mb-3">
             <label for="title" class="form-label">Title : </label>
             <input 
             name = "listing[title]" 
             placeholder="Add a catchy title" 
             type="text" 
-            class ="form-control">
+            class ="form-control"
+            required >
+            <div class="valid-feedback">Title looks good!</div>
         </div>
 
         <div class="mb-3">
@@ -21,7 +23,9 @@
         <textarea 
             name="listing[description]" 
             class = "form-control"
+            required
             ></textarea>
+            <div class="invalid-feedback">Please enter a valid description</div>    
         </div>
         
         <div class="mb-3">
@@ -41,8 +45,9 @@
             <input 
             name="listing[price]" 
             placeholder="2000" 
-            type="number"
-            class="form-control">
+            class="form-control"
+            required >
+            <div class="invalid-feedback">Please enter a valid price</div>
         </div>
 
         <div class="mb-3 col-md-8">
@@ -51,7 +56,9 @@
             name = "listing[country]" 
             placeholder="India" 
             type="text"
-            class="form-control">
+            class="form-control"
+            required >
+            <div class="invalid-feedback">Please enter a valid country</div>
         </div>
         
  </div>
@@ -62,7 +69,11 @@
             name = "listing[location]" 
             placeholder="Jaipur, Rajasthan" 
             type="text"
-            class="form-control">
+            class="form-control"
+            required >
+            <div class="invalid-feedback">Please enter a valid location</div> 
+        </div>
+        
         <br><br>
         <button class = "btn btn-dark add-btn">Add</button>
     </Form>
