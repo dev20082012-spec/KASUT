@@ -1,27 +1,101 @@
 <% layout("layouts-ejs_mate/boilerplate.ejs") -%>
 
-    <h1>ALL LISTINGS!</h1>
-    <!-- <FORM method="GET" action="/listings/new">
-        <button>Create New Listings</button>
-    </FORM> -->
-
-
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-
-<% for(let listings of allListings) { %>
-  <a href="listings/<%= listings._id %>" class="listings-links">
-    <div class="card col">
-  <img src="<%= listings.image.url%>" class="card-img-top" alt="listings_img " style="width: 20rem;">
-  <div class="card-img-overlay"></div>
-  <div class="card-body">
-    <h5 class="card-title"><%= listings.title %></h5>
-    <p class="card-text"> ₹<%= listings.price.toLocaleString("en-IN") %> /night
-    <br>
-    <%= listings.location %>,&nbsp;<%= listings.country %>.
-    </p>
-  </div>
+<div class="category-bar">
+    <a href="/listings" class="category-item <%= !locals.activeCategory && !locals.searchQuery ? 'active' : '' %>">
+        <i class="fa-solid fa-border-all"></i>
+        <span>All</span>
+    </a>
+    <a href="/listings/filter?category=Beaches" class="category-item <%= locals.activeCategory === 'Beaches' ? 'active' : '' %>">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <span>Beaches</span>
+    </a>
+    <a href="/listings/filter?category=Mountains" class="category-item <%= locals.activeCategory === 'Mountains' ? 'active' : '' %>">
+        <i class="fa-solid fa-mountain-sun"></i>
+        <span>Mountains</span>
+    </a>
+    <a href="/listings/filter?category=Castles" class="category-item <%= locals.activeCategory === 'Castles' ? 'active' : '' %>">
+        <i class="fa-solid fa-chess-rook"></i>
+        <span>Castles</span>
+    </a>
+    <a href="/listings/filter?category=Farms" class="category-item <%= locals.activeCategory === 'Farms' ? 'active' : '' %>">
+        <i class="fa-solid fa-tractor"></i>
+        <span>Farms</span>
+    </a>
+    <a href="/listings/filter?category=Arctic" class="category-item <%= locals.activeCategory === 'Arctic' ? 'active' : '' %>">
+        <i class="fa-solid fa-snowflake"></i>
+        <span>Arctic</span>
+    </a>
+    <a href="/listings/filter?category=Camping" class="category-item <%= locals.activeCategory === 'Camping' ? 'active' : '' %>">
+        <i class="fa-solid fa-campground"></i>
+        <span>Camping</span>
+    </a>
+    <a href="/listings/filter?category=Iconic Cities" class="category-item <%= locals.activeCategory === 'Iconic Cities' ? 'active' : '' %>">
+        <i class="fa-solid fa-city"></i>
+        <span>Iconic Cities</span>
+    </a>
+    <a href="/listings/filter?category=Treehouses" class="category-item <%= locals.activeCategory === 'Treehouses' ? 'active' : '' %>">
+        <i class="fa-solid fa-tree"></i>
+        <span>Treehouses</span>
+    </a>
+    <a href="/listings/filter?category=Lakefront" class="category-item <%= locals.activeCategory === 'Lakefront' ? 'active' : '' %>">
+        <i class="fa-solid fa-water"></i>
+        <span>Lakefront</span>
+    </a>
+    <a href="/listings/filter?category=Desert" class="category-item <%= locals.activeCategory === 'Desert' ? 'active' : '' %>">
+        <i class="fa-solid fa-sun"></i>
+        <span>Desert</span>
+    </a>
+    <a href="/listings/filter?category=Luxury" class="category-item <%= locals.activeCategory === 'Luxury' ? 'active' : '' %>">
+        <i class="fa-solid fa-gem"></i>
+        <span>Luxury</span>
+    </a>
+    <a href="/listings/filter?category=Tropical" class="category-item <%= locals.activeCategory === 'Tropical' ? 'active' : '' %>">
+        <i class="fa-solid fa-leaf"></i>
+        <span>Tropical</span>
+    </a>
 </div>
-</a>
+
+<% if(locals.searchQuery) { %>
+<div class="search-results-info">
+    <h5>Search results for "<%= searchQuery %>"</h5>
+    <a href="/listings" class="btn btn-sm btn-outline-dark">Clear</a>
+</div>
 <% } %>
 
+<div class="tax-toggle">
+    <span>Display total before taxes</span>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="taxSwitch">
     </div>
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for(let listings of allListings) { %>
+    <a href="/listings/<%= listings._id %>" class="listings-links">
+        <div class="card col listing-card">
+            <img src="<%= listings.image.url %>" class="card-img-top" alt="<%= listings.title %>">
+            <div class="card-img-overlay"></div>
+            <div class="card-body">
+                <h5 class="card-title"><%= listings.title %></h5>
+                <p class="card-text">
+                    &#8377;<%= listings.price.toLocaleString("en-IN") %> /night
+                    <span class="tax-info" style="display: none;">
+                        + &#8377;<%= Math.round(listings.price * 0.18).toLocaleString("en-IN") %> tax
+                    </span>
+                    <br>
+                    <%= listings.location %>,&nbsp;<%= listings.country %>.
+                </p>
+            </div>
+        </div>
+    </a>
+    <% } %>
+</div>
+
+<% if(!allListings.length) { %>
+<div class="no-results">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <h4>No listings found</h4>
+    <p>Try adjusting your search or filter to find what you're looking for.</p>
+    <a href="/listings" class="btn btn-dark">View All Listings</a>
+</div>
+<% } %>

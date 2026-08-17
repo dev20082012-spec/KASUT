@@ -1,19 +1,31 @@
 (() => {
-  'use strict'
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
+let taxSwitch = document.getElementById("taxSwitch");
+if (taxSwitch) {
+    taxSwitch.addEventListener("change", () => {
+        let taxInfos = document.querySelectorAll(".tax-info");
+        taxInfos.forEach((info) => {
+            info.style.display = taxSwitch.checked ? "inline" : "none";
+        });
+    });
+}
 
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      form.classList.add('was-validated')
-    }, false)
-  })
-})() 
-// the validation that this field is required to fill type things in new ejs is done by this script... 
+let ratingRange = document.getElementById("ratingRange");
+let ratingValue = document.getElementById("ratingValue");
+if (ratingRange && ratingValue) {
+    ratingRange.addEventListener("input", () => {
+        ratingValue.innerText = ratingRange.value;
+    });
+}

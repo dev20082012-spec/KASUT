@@ -10,8 +10,6 @@ body {
     flex: 1;
 }
 
-/* NAVBAR */
-
 .navbar {
     height: 5rem;
     background-color: #ffffff;
@@ -22,13 +20,11 @@ body {
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* Airbnb-style brand */
 .navbar-brand.brand {
     display: flex;
     align-items: center;
     gap: 4px;
     color: #FF385C;
-    /* Airbnb's exact coral-red */
     font-size: 1.7rem;
     font-weight: 500;
     letter-spacing: -0.5px;
@@ -38,10 +34,199 @@ body {
 
 .nav-link {
     color: #222222 !important;
+    font-weight: 500;
+    transition: color 0.2s ease;
 }
 
+.nav-link:hover {
+    color: #FF385C !important;
+}
 
-/* FOOTER */
+.search-form {
+    max-width: 300px;
+}
+
+.search-input {
+    border-radius: 24px;
+    border: 1px solid #dddddd;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.2);
+    border-color: #FF385C;
+}
+
+.search-btn {
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.flash-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.flash-alert {
+    margin-top: 1rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.hero-section {
+    position: relative;
+    background: linear-gradient(135deg, #FF385C 0%, #E31C5F 40%, #BD1E59 100%);
+    border-radius: 1.5rem;
+    padding: 5rem 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1400&q=60") center/cover;
+    opacity: 0.15;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.8rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+}
+
+.hero-btn {
+    background-color: #ffffff;
+    color: #FF385C;
+    font-weight: 600;
+    padding: 0.75rem 2.5rem;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+    background-color: #222222;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.category-bar {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.2rem 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 1.5rem;
+}
+
+.category-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: #717171;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    min-width: fit-content;
+}
+
+.category-item i {
+    font-size: 1.4rem;
+}
+
+.category-item:hover {
+    color: #222222;
+    border-bottom-color: #dddddd;
+}
+
+.category-item.active {
+    color: #222222;
+    border-bottom-color: #222222;
+}
+
+.search-results-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem;
+    background-color: #f7f7f7;
+    border-radius: 0.75rem;
+}
+
+.search-results-info h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.tax-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: #484848;
+    font-weight: 500;
+}
+
+.tax-toggle .form-check-input:checked {
+    background-color: #222222;
+    border-color: #222222;
+}
+
+.tax-info {
+    color: #717171;
+    font-size: 0.85rem;
+}
 
 footer {
     background-color: #222222;
@@ -58,12 +243,15 @@ footer {
     margin: 0 auto;
 }
 
-/* ---- Social icons row ---- */
 .f-info-social {
     display: flex;
     align-items: center;
     gap: 0.6rem;
     margin-bottom: 1.2rem;
+}
+
+.f-info-social a {
+    text-decoration: none;
 }
 
 .f-info-social i {
@@ -85,7 +273,6 @@ footer {
     transform: translateY(-2px);
 }
 
-/* ---- Divider ---- */
 .f-info::after {
     content: '';
     display: block;
@@ -95,7 +282,6 @@ footer {
     margin: 0.6rem 0 1rem;
 }
 
-/* ---- Brand / copyright row ---- */
 .f-info-brands {
     width: 100%;
     text-align: center;
@@ -106,7 +292,6 @@ footer {
     margin-bottom: 0.6rem;
 }
 
-/* ---- Links row ---- */
 .f-info-links {
     display: flex;
     align-items: center;
@@ -124,7 +309,6 @@ footer {
     transition: color 0.2s ease;
 }
 
-/* animated underline on hover */
 .f-info-links a::after {
     content: '';
     position: absolute;
@@ -144,9 +328,6 @@ footer {
     width: 100%;
 }
 
-
-
-/* CARDS */
 .card {
     border: none;
     margin-bottom: 2rem;
@@ -156,7 +337,13 @@ footer {
     border-radius: 1rem !important;
     margin-bottom: 1rem;
     width: 100% !important;
+    height: 20rem;
     object-fit: cover !important;
+    transition: transform 0.3s ease;
+}
+
+.listing-card:hover .card-img-top {
+    transform: scale(1.02);
 }
 
 .card-body {
@@ -171,9 +358,10 @@ footer {
     text-decoration: none;
 }
 
-/* OVERLAY EFFECT */
 .card-img-overlay {
     opacity: 0;
+    border-radius: 1rem;
+    transition: opacity 0.3s ease;
 }
 
 .card-img-overlay:hover {
@@ -181,23 +369,156 @@ footer {
     background-color: rgba(0, 0, 0, 0.468);
 }
 
-/* NEW PAGE + EDIT PAGE */
 .add-btn,
 .edit-btn {
     background-color: #fe424d !important;
     border: none !important;
 }
 
-/* SHOW PAGE */
+.add-btn:hover,
+.edit-btn:hover {
+    background-color: #e0313e !important;
+}
+
+.auth-btn {
+    background-color: #FF385C !important;
+    border: none !important;
+    width: 100%;
+    padding: 0.6rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+}
+
+.auth-btn:hover {
+    background-color: #e0313e !important;
+}
+
 .show-img {
-    height: 30vh;
+    height: 40vh;
+    object-fit: cover;
 }
 
 .btns {
     display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .show-card {
     padding-left: 0;
     padding-right: 0;
+}
+
+.listing-owner {
+    font-size: 0.9rem;
+    color: #717171;
+}
+
+.delete-btn {
+    background-color: #222222 !important;
+    border: none !important;
+}
+
+.delete-btn:hover {
+    background-color: #444444 !important;
+}
+
+.review-card {
+    background-color: #f7f7f7;
+    padding: 1.2rem;
+    border-radius: 0.75rem;
+    border: 1px solid #ebebeb;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.review-header h6 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.review-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.star-filled {
+    color: #FFC107;
+    font-size: 0.85rem;
+}
+
+.star-empty {
+    color: #dddddd;
+    font-size: 0.85rem;
+}
+
+.review-comment {
+    color: #484848;
+    margin-bottom: 0.5rem;
+}
+
+.edit-preview-img {
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    max-width: 250px;
+}
+
+.error-alert {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    border-radius: 0.75rem;
+}
+
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #717171;
+}
+
+.no-results i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #dddddd;
+}
+
+.no-results h4 {
+    color: #222222;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .search-form {
+        margin: 0.5rem 0;
+        max-width: 100%;
+    }
+
+    .category-bar {
+        gap: 1rem;
+    }
+
+    .btns {
+        flex-direction: column;
+    }
+
+    .show-img {
+        height: 25vh;
+    }
 }
