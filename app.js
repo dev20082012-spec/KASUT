@@ -20,7 +20,7 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const bookingRouter = require("./routes/booking.js");
 
-const dbUrl = process.env.MONGO_URL;
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
     .then(() => {
@@ -58,6 +58,7 @@ const sessionOptions = {
         secure: process.env.NODE_ENV === "production"
     }
 };
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
