@@ -1,0 +1,130 @@
+<% layout("/layouts-ejs_mate/boilerplate") %>
+
+<div class="profile-hero">
+    <div class="profile-avatar-large"><%= currUser.username.charAt(0).toUpperCase() %></div>
+    <h2 class="profile-username"><%= currUser.username %></h2>
+    <p class="profile-meta"><i class="fa-solid fa-envelope"></i> <%= user.email %></p>
+    <p class="profile-meta"><i class="fa-solid fa-calendar-days"></i> Member since <%= new Date(user._id.getTimestamp()).toLocaleDateString("en-IN", { year: "numeric", month: "long" }) %></p>
+</div>
+
+<%
+    let totalNights = [...upcomingBookings, ...pastBookings].reduce((sum, b) => {
+        return sum + Math.round((new Date(b.checkOut) - new Date(b.checkIn)) / (1000 * 60 * 60 * 24));
+    }, 0);
+%>
+<div class="profile-stats">
+    <div class="profile-stat">
+        <div class="profile-stat-value"><%= myListings.length %></div>
+        <div class="profile-stat-label">Listings</div>
+    </div>
+    <div class="profile-stat-divider"></div>
+    <div class="profile-stat">
+        <div class="profile-stat-value"><%= upcomingBookings.length + pastBookings.length %></div>
+        <div class="profile-stat-label">Bookings</div>
+    </div>
+    <div class="profile-stat-divider"></div>
+    <div class="profile-stat">
+        <div class="profile-stat-value"><%= totalNights %></div>
+        <div class="profile-stat-label">Nights Stayed</div>
+    </div>
+</div>
+
+<div class="profile-tabs" id="profileTabs">
+    <button class="profile-tab active" id="tab-btn-listings" onclick="switchTab('listings', event)">
+        <i class="fa-solid fa-house"></i> My Listings
+    </button>
+    <button class="profile-tab" id="tab-btn-bookings" onclick="switchTab('bookings', event)">
+        <i class="fa-solid fa-calendar-check"></i> My Bookings
+        <% if(upcomingBookings.length) { %>
+        <span class="booking-badge"><%= upcomingBookings.length %></span>
+        <% } %>
+    </button>
+</div>
+
+<div id="tab-listings" class="tab-content">
+    <% if(myListings.length) { %>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+        <% for(let listing of myListings) { %>
+        <a href="/listings/<%= listing._id %>" class="listings-links">
+            <div class="card col listing-card">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <h5 class="card-title"><%= listing.title %></h5>
+                    <p class="card-text">
+                        &#8377;<%= listing.price.toLocaleString("en-IN") %> /night<br>
+                        <%= listing.location %>,&nbsp;<%= listing.country %>.
+                    </p>
+                </div>
+            </div>
+        </a>
+        <% } %>
+    </div>
+    <% } else { %>
+    <div class="no-results mt-4">
+        <i class="fa-solid fa-house-circle-xmark"></i>
+        <h4>No listings yet</h4>
+        <p>Start hosting by adding your first listing.</p>
+        <a href="/listings/new" class="btn btn-dark">Add a Listing</a>
+    </div>
+    <% } %>
+</div>
+
+<div id="tab-bookings" class="tab-content" style="display:none">
+    <% if(upcomingBookings.length || pastBookings.length) { %>
+
+    <% if(upcomingBookings.length) { %>
+    <h5 class="profile-section-title">Upcoming Stays</h5>
+    <div class="bookings-list">
+        <% for(let booking of upcomingBookings) { %>
+        <div class="booking-row">
+            <img src="<%= booking.listing.image.url %>" class="booking-thumb" alt="<%= booking.listing.title %>">
+            <div class="booking-info">
+                <div class="booking-listing-title"><a href="/listings/<%= booking.listing._id %>"><%= booking.listing.title %></a></div>
+                <div class="booking-dates">
+                    <i class="fa-regular fa-calendar"></i>
+                    <%= new Date(booking.checkIn).toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }) %>
+                    &rarr;
+                    <%= new Date(booking.checkOut).toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }) %>
+                </div>
+                <div class="booking-total-price">&#8377;<%= booking.totalPrice.toLocaleString("en-IN") %> total</div>
+            </div>
+            <form method="POST" action="/listings/<%= booking.listing._id %>/bookings/<%= booking._id %>?_method=DELETE" class="ms-auto align-self-center">
+                <button class="btn btn-sm btn-outline-danger">Cancel</button>
+            </form>
+        </div>
+        <% } %>
+    </div>
+    <% } %>
+
+    <% if(pastBookings.length) { %>
+    <h5 class="profile-section-title mt-4">Past Stays</h5>
+    <div class="bookings-list">
+        <% for(let booking of pastBookings) { %>
+        <div class="booking-row booking-row-past">
+            <img src="<%= booking.listing.image.url %>" class="booking-thumb" alt="<%= booking.listing.title %>">
+            <div class="booking-info">
+                <div class="booking-listing-title"><a href="/listings/<%= booking.listing._id %>"><%= booking.listing.title %></a></div>
+                <div class="booking-dates">
+                    <i class="fa-regular fa-calendar"></i>
+                    <%= new Date(booking.checkIn).toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }) %>
+                    &rarr;
+                    <%= new Date(booking.checkOut).toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }) %>
+                </div>
+                <div class="booking-total-price">&#8377;<%= booking.totalPrice.toLocaleString("en-IN") %> total</div>
+            </div>
+            <span class="badge bg-secondary ms-auto align-self-center">Completed</span>
+        </div>
+        <% } %>
+    </div>
+    <% } %>
+
+    <% } else { %>
+    <div class="no-results mt-4">
+        <i class="fa-solid fa-calendar-xmark"></i>
+        <h4>No bookings yet</h4>
+        <p>Explore listings and book your next adventure.</p>
+        <a href="/listings" class="btn btn-dark">Explore Listings</a>
+    </div>
+    <% } %>
+</div>

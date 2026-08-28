@@ -2,7 +2,7 @@
 
 <div class="row mt-3">
     <div class="col-8 offset-3">
-        <h3><%- listing.title %></h3>
+        <h3><%= listing.title %></h3>
     </div>
 
     <div class="card col-6 offset-3 show-card">
@@ -29,37 +29,126 @@
     </div>
     <% } %>
 
+    <% if(currUser && listing.owner && listing.owner._id.equals(currUser._id)) { %>
+    <div class="col-6 offset-3 mt-3">
+        <div class="booking-owner-panel">
+            <h5><i class="fa-solid fa-calendar-check"></i> Upcoming Bookings</h5>
+            <%
+                const nowDate = new Date();
+                const upcomingOwnerBookings = listing.bookings.filter(b => new Date(b.checkOut) >= nowDate);
+            %>
+            <% if(upcomingOwnerBookings.length) { %>
+            <% for(let booking of upcomingOwnerBookings) { %>
+            <div class="owner-booking-row">
+                <div class="owner-booking-guest"><i class="fa-solid fa-user"></i> @<%= booking.guest.username %></div>
+                <div class="owner-booking-dates">
+                    <%= new Date(booking.checkIn).toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }) %>
+                    &rarr;
+                    <%= new Date(booking.checkOut).toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }) %>
+                </div>
+                <div class="owner-booking-price">&#8377;<%= booking.totalPrice.toLocaleString("en-IN") %></div>
+            </div>
+            <% } %>
+            <% } else { %>
+            <p class="text-muted mb-0" style="font-size:0.9rem;">No upcoming bookings for this listing.</p>
+            <% } %>
+        </div>
+    </div>
+    <% } else if(currUser) { %>
+    <div class="col-6 offset-3 mt-3">
+        <div class="booking-card">
+            <div class="booking-price-header">
+                <span class="booking-price">&#8377;<%= listing.price.toLocaleString("en-IN") %></span>
+                <span class="booking-per-night">/ night</span>
+            </div>
+            <form method="POST" action="/listings/<%= listing._id %>/bookings" id="bookingForm">
+                <div class="booking-dates-row">
+                    <div class="booking-date-field">
+                        <label>CHECK-IN</label>
+                        <input type="date" name="booking[checkIn]" id="checkIn" required>
+                    </div>
+                    <div class="booking-date-field">
+                        <label>CHECK-OUT</label>
+                        <input type="date" name="booking[checkOut]" id="checkOut" required>
+                    </div>
+                </div>
+                <script>window.__bookedRanges = <%- JSON.stringify(bookedRanges) %>; window.__listingPrice = <%= listing.price %>;</script>
+                <div class="booking-total" id="bookingTotal">
+                    <span id="nightsLabel"></span>
+                    <strong id="totalPriceLabel"></strong>
+                </div>
+                <% if(bookedRanges && bookedRanges.length) { %>
+                <div class="booked-notice">
+                    <i class="fa-solid fa-circle-info"></i> Some dates are already booked
+                </div>
+                <% } %>
+                <button class="btn booking-btn" type="submit">Reserve</button>
+            </form>
+        </div>
+    </div>
+    <% } %>
+
     <hr>
 
-    <% if(currUser) { %>
     <div class="col-8 offset-3 mb-3">
-        <h4>Leave a Review</h4>
+        <% if(listing.reviews.length) {
+            let totalRating = listing.reviews.reduce((sum, r) => sum + r.rating, 0);
+            let avgRating = (totalRating / listing.reviews.length).toFixed(1);
+            let fullStars = Math.round(avgRating);
+        %>
+        <div class="review-summary-block">
+            <div class="review-summary-score"><%= avgRating %></div>
+            <div class="review-summary-right">
+                <div class="review-summary-stars">
+                    <% for(let i = 1; i <= 5; i++) { %>
+                    <% if(i <= fullStars) { %>
+                    <i class="fa-solid fa-star star-filled"></i>
+                    <% } else { %>
+                    <i class="fa-regular fa-star star-empty"></i>
+                    <% } %>
+                    <% } %>
+                </div>
+                <div class="review-summary-count"><%= listing.reviews.length %> review<%= listing.reviews.length !== 1 ? 's' : '' %></div>
+            </div>
+        </div>
+        <% } %>
+
+        <% if(currUser) { %>
+        <h4 class="mt-3">Leave a Review</h4>
         <form method="POST" action="/listings/<%= listing._id %>/reviews" class="needs-validation" novalidate>
             <div class="mb-3 mt-3">
-                <label for="rating" class="form-label">Rating</label>
-                <input type="range" min="1" max="5" name="review[rating]" class="form-range" id="ratingRange"
-                    value="3">
-                <span id="ratingValue">3</span> / 5
+                <label class="form-label">Rating</label>
+                <div class="star-picker" id="starPicker">
+                    <i class="fa-regular fa-star star-pick" data-val="1"></i>
+                    <i class="fa-regular fa-star star-pick" data-val="2"></i>
+                    <i class="fa-regular fa-star star-pick" data-val="3"></i>
+                    <i class="fa-regular fa-star star-pick" data-val="4"></i>
+                    <i class="fa-regular fa-star star-pick" data-val="5"></i>
+                </div>
+                <input type="hidden" name="review[rating]" id="ratingInput" value="">
+                <span class="rating-label" id="ratingLabel">Click a star to rate</span>
             </div>
             <div class="mb-3 mt-3">
                 <label for="comment" class="form-label">Comments</label>
-                <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
-                    required></textarea>
+                <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
                 <div class="invalid-feedback">Please add a comment</div>
             </div>
             <button class="btn btn-outline-dark">Submit</button>
         </form>
-    </div>
-    <% } %>
-
-    <div class="col-8 offset-3 mb-3">
-        <% if(listing.reviews.length) { %>
-        <h4>Reviews</h4>
         <% } %>
+
+        <% if(listing.reviews.length) { %>
+        <h4 class="mt-3">Reviews</h4>
         <% for(let review of listing.reviews) { %>
         <div class="review-card mb-3">
             <div class="review-header">
-                <h6>@<%= review.author.username %></h6>
+                <div class="review-author-info">
+                    <div class="review-avatar"><%= review.author.username.charAt(0).toUpperCase() %></div>
+                    <div>
+                        <h6>@<%= review.author.username %></h6>
+                        <span class="review-date"><%= new Date(review.createdAt).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" }) %></span>
+                    </div>
+                </div>
                 <div class="review-stars">
                     <% for(let i = 1; i <= 5; i++) { %>
                     <% if(i <= review.rating) { %>
@@ -77,6 +166,7 @@
             </form>
             <% } %>
         </div>
+        <% } %>
         <% } %>
     </div>
 </div>

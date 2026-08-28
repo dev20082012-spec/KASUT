@@ -522,3 +522,445 @@ footer {
         height: 25vh;
     }
 }
+
+.review-summary-block {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: linear-gradient(135deg, #fff8f0 0%, #fff3e8 100%);
+    border: 1px solid #ffe0c0;
+    border-radius: 1rem;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.review-summary-score {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #222222;
+    line-height: 1;
+}
+
+.review-summary-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.review-summary-stars {
+    display: flex;
+    gap: 3px;
+}
+
+.review-summary-stars .star-filled {
+    font-size: 1.1rem;
+    color: #FFC107;
+}
+
+.review-summary-stars .star-empty {
+    font-size: 1.1rem;
+    color: #dddddd;
+}
+
+.review-summary-count {
+    font-size: 0.85rem;
+    color: #717171;
+    font-weight: 500;
+}
+
+.star-picker {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 0.4rem;
+}
+
+.star-pick {
+    font-size: 1.8rem;
+    color: #dddddd;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.star-pick.hovered,
+.star-pick.selected {
+    color: #FFC107;
+}
+
+.star-pick:hover {
+    transform: scale(1.15);
+}
+
+.rating-label {
+    font-size: 0.82rem;
+    color: #717171;
+    margin-left: 0.2rem;
+}
+
+.review-author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.review-avatar {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF385C, #E31C5F);
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.review-date {
+    font-size: 0.78rem;
+    color: #aaaaaa;
+    font-weight: 400;
+}
+
+.review-header h6 {
+    margin-bottom: 0.1rem;
+}
+
+.booking-card {
+    border: 1px solid #dddddd;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+}
+
+.booking-price-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+}
+
+.booking-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #222222;
+}
+
+.booking-per-night {
+    font-size: 0.9rem;
+    color: #717171;
+}
+
+.booking-dates-row {
+    display: flex;
+    border: 1px solid #dddddd;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.booking-date-field {
+    flex: 1;
+    padding: 0.7rem 0.8rem;
+}
+
+.booking-date-field:first-child {
+    border-right: 1px solid #dddddd;
+}
+
+.booking-date-field label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #222222;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+}
+
+.booking-date-field input[type="date"] {
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    width: 100%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: transparent;
+    cursor: pointer;
+}
+
+.booking-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-top: 1px solid #ebebeb;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: #484848;
+}
+
+.booking-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #FF385C, #E31C5F);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.booking-btn:hover {
+    background: linear-gradient(135deg, #E31C5F, #BD1E59);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(255, 56, 92, 0.3);
+    color: #ffffff;
+}
+
+.booked-notice {
+    font-size: 0.82rem;
+    color: #717171;
+    margin-bottom: 0.8rem;
+    padding: 0.5rem 0.8rem;
+    background: #fff8f0;
+    border-radius: 0.4rem;
+    border-left: 3px solid #FFC107;
+}
+
+.booking-owner-panel {
+    border: 1px solid #ebebeb;
+    border-radius: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: #fafafa;
+}
+
+.booking-owner-panel h5 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.owner-booking-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-top: 1px solid #ebebeb;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.owner-booking-guest {
+    font-weight: 600;
+    color: #222222;
+    min-width: 8rem;
+}
+
+.owner-booking-dates {
+    color: #717171;
+    flex: 1;
+}
+
+.owner-booking-price {
+    font-weight: 600;
+    color: #FF385C;
+}
+
+.profile-hero {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+    border: 1px solid #ebebeb;
+    border-radius: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-avatar-large {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF385C, #E31C5F);
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    box-shadow: 0 6px 20px rgba(255, 56, 92, 0.3);
+}
+
+.profile-username {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 0.5rem;
+}
+
+.profile-meta {
+    font-size: 0.9rem;
+    color: #717171;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 1.5rem;
+    background: #f7f7f7;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.profile-stat {
+    text-align: center;
+    flex: 1;
+}
+
+.profile-stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222222;
+    line-height: 1;
+}
+
+.profile-stat-label {
+    font-size: 0.82rem;
+    color: #717171;
+    font-weight: 500;
+    margin-top: 0.3rem;
+}
+
+.profile-stat-divider {
+    width: 1px;
+    height: 2.5rem;
+    background-color: #dddddd;
+    flex-shrink: 0;
+}
+
+.profile-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 1.5rem;
+}
+
+.profile-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #717171;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.profile-tab.active {
+    color: #222222;
+    border-bottom-color: #222222;
+}
+
+.profile-tab:hover {
+    color: #222222;
+}
+
+.booking-badge {
+    background-color: #FF385C;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    line-height: 1.4;
+}
+
+.profile-section-title {
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.booking-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #ebebeb;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    transition: box-shadow 0.2s ease;
+}
+
+.booking-row:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.booking-row-past {
+    opacity: 0.65;
+}
+
+.booking-thumb {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+}
+
+.booking-info {
+    flex: 1;
+}
+
+.booking-listing-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.booking-listing-title a {
+    color: #222222;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.booking-listing-title a:hover {
+    color: #FF385C;
+}
+
+.booking-dates {
+    font-size: 0.85rem;
+    color: #717171;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.booking-total-price {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #222222;
+}

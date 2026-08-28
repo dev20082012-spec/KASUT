@@ -13,12 +13,17 @@ module.exports.showListing = async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id)
         .populate({ path: "reviews", populate: { path: "author" } })
-        .populate("owner");
+        .populate("owner")
+        .populate({ path: "bookings", populate: { path: "guest" } });
     if (!listing) {
         req.flash("error", "Listing you requested does not exist");
         return res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { listing });
+    const bookedRanges = listing.bookings.map(b => ({
+        checkIn: b.checkIn.toISOString().split("T")[0],
+        checkOut: b.checkOut.toISOString().split("T")[0]
+    }));
+    res.render("listings/show.ejs", { listing, bookedRanges });
 };
 
 module.exports.createListing = async (req, res) => {

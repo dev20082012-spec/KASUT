@@ -1,5 +1,6 @@
 const Listing = require("./models/listing.js");
 const Review = require("./models/reviews.js");
+const Booking = require("./models/booking.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema_joi.js");
 
@@ -57,4 +58,14 @@ module.exports.validateReview = (req, res, next) => {
     } else {
         next();
     }
+};
+
+module.exports.isBookingGuest = async (req, res, next) => {
+    let { bookingId } = req.params;
+    let booking = await Booking.findById(bookingId);
+    if (!booking || !booking.guest.equals(res.locals.currUser._id)) {
+        req.flash("error", "You are not authorized to cancel this booking");
+        return res.redirect("/profile");
+    }
+    next();
 };
