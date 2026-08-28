@@ -92,6 +92,18 @@ if (starPicker && ratingInput) {
     }
 }
 
+const listingDataEl = document.getElementById("listingData");
+if (listingDataEl) {
+    try {
+        const parsedListingData = JSON.parse(listingDataEl.textContent);
+        window.__bookedRanges = parsedListingData.bookedRanges || [];
+        window.__listingPrice = parsedListingData.price || 0;
+    } catch (e) {
+        window.__bookedRanges = window.__bookedRanges || [];
+        window.__listingPrice = window.__listingPrice || 0;
+    }
+}
+
 const checkInInput = document.getElementById("checkIn");
 const checkOutInput = document.getElementById("checkOut");
 const bookingTotalDiv = document.getElementById("bookingTotal");
@@ -156,3 +168,123 @@ function switchTab(tab, event) {
     document.getElementById("tab-" + tab).style.display = "block";
     event.currentTarget.classList.add("active");
 }
+
+function toggleFilterPanel() {
+    const dropdown = document.getElementById("filterDropdown");
+    if (dropdown) {
+        dropdown.classList.toggle("show");
+    }
+}
+
+function renderAvailabilityCalendar() {
+    const container = document.getElementById("availCalendar");
+    if (!container) return;
+
+    const bookedRanges = (window.__bookedRanges || []).map(r => ({
+        start: new Date(r.checkIn + "T00:00:00"),
+        end: new Date(r.checkOut + "T00:00:00")
+    }));
+
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    container.innerHTML = "";
+
+    const monthsToRender = [
+        new Date(now.getFullYear(), now.getMonth(), 1),
+        new Date(now.getFullYear(), now.getMonth() + 1, 1)
+    ];
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dayNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+    monthsToRender.forEach(monthDate => {
+        const year = monthDate.getFullYear();
+        const month = monthDate.getMonth();
+
+        const monthCard = document.createElement("div");
+        monthCard.className = "avail-month";
+
+        const title = document.createElement("div");
+        title.className = "avail-month-title";
+        title.textContent = monthNames[month] + " " + year;
+        monthCard.appendChild(title);
+
+        const weekdays = document.createElement("div");
+        weekdays.className = "avail-weekdays";
+        dayNames.forEach(d => {
+            const span = document.createElement("span");
+            span.textContent = d;
+            weekdays.appendChild(span);
+        });
+        monthCard.appendChild(weekdays);
+
+        const daysGrid = document.createElement("div");
+        daysGrid.className = "avail-days-grid";
+
+        const firstDayIndex = new Date(year, month, 1).getDay();
+        const totalDays = new Date(year, month + 1, 0).getDate();
+
+        for (let i = 0; i < firstDayIndex; i++) {
+            const emptyCell = document.createElement("div");
+            emptyCell.className = "avail-day empty";
+            daysGrid.appendChild(emptyCell);
+        }
+
+        for (let day = 1; day <= totalDays; day++) {
+            const currentDayDate = new Date(year, month, day);
+            const dayCell = document.createElement("div");
+            dayCell.className = "avail-day";
+            dayCell.textContent = day;
+
+            const isPast = currentDayDate < today;
+            const isToday = currentDayDate.getTime() === today.getTime();
+
+            const isBooked = bookedRanges.some(range => {
+                return currentDayDate >= range.start && currentDayDate < range.end;
+            });
+
+            if (isToday) {
+                dayCell.classList.add("today");
+            }
+
+            if (isPast) {
+                dayCell.classList.add("past");
+            } else if (isBooked) {
+                dayCell.classList.add("booked");
+            } else {
+                dayCell.classList.add("available");
+                if (checkInInput && checkOutInput) {
+                    dayCell.style.cursor = "pointer";
+                    dayCell.title = "Click to select date";
+                    dayCell.addEventListener("click", () => {
+                        const dateString = currentDayDate.toISOString().split("T")[0];
+                        if (!checkInInput.value || (checkInInput.value && checkOutInput.value)) {
+                            checkInInput.value = dateString;
+                            checkInInput.dispatchEvent(new Event("change"));
+                            checkOutInput.value = "";
+                        } else if (checkInInput.value && !checkOutInput.value) {
+                            if (new Date(dateString) > new Date(checkInInput.value)) {
+                                checkOutInput.value = dateString;
+                                checkOutInput.dispatchEvent(new Event("change"));
+                            } else {
+                                checkInInput.value = dateString;
+                                checkInInput.dispatchEvent(new Event("change"));
+                            }
+                        }
+                    });
+                }
+            }
+
+            daysGrid.appendChild(dayCell);
+        }
+
+        monthCard.appendChild(daysGrid);
+        container.appendChild(monthCard);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderAvailabilityCalendar();
+});
+renderAvailabilityCalendar();

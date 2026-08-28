@@ -1,4 +1,4 @@
-<% layout("layouts-ejs_mate/boilerplate.ejs") -%>
+<% layout("/layouts-ejs_mate/boilerplate") %>
 
 <div class="row mt-3">
     <div class="col-8 offset-3">
@@ -72,7 +72,6 @@
                         <input type="date" name="booking[checkOut]" id="checkOut" required>
                     </div>
                 </div>
-                <script>window.__bookedRanges = <%- JSON.stringify(bookedRanges) %>; window.__listingPrice = <%= listing.price %>;</script>
                 <div class="booking-total" id="bookingTotal">
                     <span id="nightsLabel"></span>
                     <strong id="totalPriceLabel"></strong>
@@ -87,6 +86,24 @@
         </div>
     </div>
     <% } %>
+
+    <script id="listingData" type="application/json">
+        <%- JSON.stringify({ bookedRanges: bookedRanges || [], price: listing.price }) %>
+    </script>
+
+    <div class="col-6 offset-3 mt-3">
+        <div class="avail-calendar-wrap">
+            <div class="avail-calendar-header">
+                <i class="fa-regular fa-calendar-days"></i> Availability
+            </div>
+            <div class="avail-calendar-legend">
+                <span class="avail-legend-item"><span class="avail-dot avail-free"></span> Available</span>
+                <span class="avail-legend-item"><span class="avail-dot avail-booked"></span> Booked</span>
+                <span class="avail-legend-item"><span class="avail-dot avail-today"></span> Today</span>
+            </div>
+            <div class="avail-months-grid" id="availCalendar"></div>
+        </div>
+    </div>
 
     <hr>
 

@@ -1,4 +1,4 @@
-<% layout("layouts-ejs_mate/boilerplate.ejs") -%>
+<% layout("/layouts-ejs_mate/boilerplate") %>
 
 <div class="category-bar">
     <a href="/listings" class="category-item <%= !locals.activeCategory && !locals.searchQuery ? 'active' : '' %>">
@@ -55,12 +55,47 @@
     </a>
 </div>
 
-<% if(locals.searchQuery) { %>
+<% if(locals.searchQuery || locals.activeMinPrice || locals.activeMaxPrice || locals.activeLocation) { %>
 <div class="search-results-info">
-    <h5>Search results for "<%= searchQuery %>"</h5>
-    <a href="/listings" class="btn btn-sm btn-outline-dark">Clear</a>
+    <% if(locals.searchQuery) { %>
+    <h5>Results for "<%= searchQuery %>"</h5>
+    <% } else { %>
+    <h5><%= allListings.length %> listing<%= allListings.length !== 1 ? 's' : '' %> found</h5>
+    <% } %>
+    <a href="/listings" class="btn btn-sm btn-outline-dark">Clear All</a>
 </div>
 <% } %>
+
+<div class="filter-panel">
+    <button class="filter-toggle-btn" id="filterToggleBtn" onclick="toggleFilterPanel()">
+        <i class="fa-solid fa-sliders"></i> Filters
+        <% if(locals.activeMinPrice || locals.activeMaxPrice || locals.activeLocation) { %>
+        <span class="filter-active-dot"></span>
+        <% } %>
+    </button>
+    <div class="filter-dropdown" id="filterDropdown">
+        <form action="/listings/search" method="GET" id="filterForm">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label"><i class="fa-solid fa-location-dot"></i> Location</label>
+                    <input type="text" name="location" class="filter-input" placeholder="City, country..." value="<%= locals.activeLocation || '' %>">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label"><i class="fa-solid fa-indian-rupee-sign"></i> Min Price / night</label>
+                    <input type="number" name="minPrice" class="filter-input" placeholder="e.g. 1000" min="0" value="<%= locals.activeMinPrice || '' %>">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label"><i class="fa-solid fa-indian-rupee-sign"></i> Max Price / night</label>
+                    <input type="number" name="maxPrice" class="filter-input" placeholder="e.g. 10000" min="0" value="<%= locals.activeMaxPrice || '' %>">
+                </div>
+                <div class="filter-actions">
+                    <button type="submit" class="btn filter-apply-btn">Apply</button>
+                    <a href="/listings" class="btn filter-clear-btn">Reset</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="tax-toggle">
     <span>Display total before taxes</span>
@@ -69,9 +104,9 @@
     </div>
 </div>
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1" id="listingsGrid">
     <% for(let listings of allListings) { %>
-    <a href="/listings/<%= listings._id %>" class="listings-links">
+    <a href="/listings/<%= listings._id %>" class="listings-links" data-price="<%= listings.price %>" data-location="<%= listings.location.toLowerCase() %>, <%= listings.country.toLowerCase() %>">
         <div class="card col listing-card">
             <img src="<%= listings.image.url %>" class="card-img-top" alt="<%= listings.title %>">
             <div class="card-img-overlay"></div>

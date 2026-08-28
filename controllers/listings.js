@@ -72,18 +72,38 @@ module.exports.destroyListing = async (req, res) => {
 };
 
 module.exports.search = async (req, res) => {
-    let { q } = req.query;
-    let allListings = [];
+    let { q, minPrice, maxPrice, location } = req.query;
+    let query = {};
+
     if (q) {
-        allListings = await Listing.find({
-            $or: [
-                { title: { $regex: q, $options: "i" } },
-                { location: { $regex: q, $options: "i" } },
-                { country: { $regex: q, $options: "i" } }
-            ]
-        });
+        query.$or = [
+            { title: { $regex: q, $options: "i" } },
+            { location: { $regex: q, $options: "i" } },
+            { country: { $regex: q, $options: "i" } }
+        ];
     }
-    res.render("listings/index.ejs", { allListings, searchQuery: q });
+
+    if (location && !q) {
+        query.$or = [
+            { location: { $regex: location, $options: "i" } },
+            { country: { $regex: location, $options: "i" } }
+        ];
+    }
+
+    if (minPrice || maxPrice) {
+        query.price = {};
+        if (minPrice) query.price.$gte = Number(minPrice);
+        if (maxPrice) query.price.$lte = Number(maxPrice);
+    }
+
+    let allListings = await Listing.find(query);
+    res.render("listings/index.ejs", {
+        allListings,
+        searchQuery: q || location || null,
+        activeMinPrice: minPrice || "",
+        activeMaxPrice: maxPrice || "",
+        activeLocation: location || ""
+    });
 };
 
 module.exports.filter = async (req, res) => {

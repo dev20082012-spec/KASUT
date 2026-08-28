@@ -964,3 +964,268 @@ footer {
     font-weight: 600;
     color: #222222;
 }
+
+/* Filter Panel (Location & Price Filter) */
+.filter-panel {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.filter-toggle-btn {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 2rem;
+    padding: 0.55rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #222222;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.filter-toggle-btn:hover {
+    border-color: #222222;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.filter-active-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #FF385C;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.filter-dropdown {
+    display: none;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+    margin-top: 0.75rem;
+    animation: filterSlideDown 0.2s ease-out;
+}
+
+.filter-dropdown.show {
+    display: block;
+}
+
+@keyframes filterSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 160px;
+}
+
+.filter-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #484848;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-input {
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid #cccccc;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filter-input:focus {
+    border-color: #222222;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.filter-apply-btn {
+    background: #222222;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.55rem 1.2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.filter-apply-btn:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+.filter-clear-btn {
+    background: #f0f0f0;
+    color: #555555;
+    border: 1px solid #dddddd;
+    border-radius: 0.5rem;
+    padding: 0.55rem 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.filter-clear-btn:hover {
+    background: #e0e0e0;
+    color: #222222;
+}
+
+/* Availability Calendar */
+.avail-calendar-wrap {
+    border: 1px solid #ebebeb;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.avail-calendar-header {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.avail-calendar-legend {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.8rem;
+    color: #717171;
+}
+
+.avail-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.avail-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.avail-dot.avail-free {
+    background-color: #28a745;
+}
+
+.avail-dot.avail-booked {
+    background-color: #FF385C;
+}
+
+.avail-dot.avail-today {
+    background-color: #007bff;
+}
+
+.avail-months-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.avail-month {
+    border: 1px solid #f0f0f0;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    background: #fafafa;
+}
+
+.avail-month-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: center;
+    color: #222222;
+    margin-bottom: 0.75rem;
+}
+
+.avail-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #888888;
+    margin-bottom: 0.4rem;
+}
+
+.avail-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+}
+
+.avail-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    border-radius: 0.35rem;
+    font-weight: 500;
+    position: relative;
+    user-select: none;
+}
+
+.avail-day.empty {
+    background: transparent;
+}
+
+.avail-day.available {
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.avail-day.booked {
+    background: #ffebee;
+    color: #c62828;
+    text-decoration: line-through;
+    font-weight: 600;
+}
+
+.avail-day.today {
+    outline: 2px solid #007bff;
+    outline-offset: -2px;
+}
+
+.avail-day.past {
+    background: #f5f5f5;
+    color: #bdbdbd;
+}
