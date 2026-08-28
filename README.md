@@ -113,20 +113,27 @@ CLOUD_NAME=your_cloudinary_name
 CLOUD_API_KEY=your_cloudinary_api_key
 CLOUD_API_SECRET=your_cloudinary_api_secret
 SECRET=your_session_secret_key
-ATLASDB_URL=your_mongodb_atlas_connection_string
+
+# Option A: MongoDB Atlas (Cloud)
+ATLASDB_URL=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/KASUT?retryWrites=true&w=majority
+
+# Option B: Local MongoDB (Default fallback if ATLASDB_URL is omitted)
+# MONGO_URL=mongodb://127.0.0.1:27017/KASUT
 ```
 
-### 4. Seed initial listings (Optional)
+*(Note: If no database URL is supplied in `.env`, the application automatically defaults to your local MongoDB server at `mongodb://127.0.0.1:27017/KASUT`).*
+
+### 4. Seed sample listings (Optional)
 ```bash
 node init/index.js
 ```
 
-### 5. Start the server
+### 5. Start the application
 ```bash
 npm start          # Production start
 npm run dev        # Development with nodemon
 ```
-Visit `http://localhost:8080` in your browser.
+Open `http://localhost:8080` in your browser.
 
 ---
 

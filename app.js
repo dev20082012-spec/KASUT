@@ -20,7 +20,8 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const bookingRouter = require("./routes/booking.js");
 
-const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = process.env.ATLASDB_URL || process.env.MONGO_URL || "mongodb://127.0.0.1:27017/KASUT";
+const secret = process.env.SECRET || "kasut_session_secret_key_2026";
 
 main()
     .then(() => {
@@ -37,7 +38,7 @@ async function main() {
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-        secret: process.env.SECRET
+        secret: secret
     },
     touchAfter: 24 * 3600
 });
@@ -48,7 +49,7 @@ store.on("error", (err) => {
 
 const sessionOptions = {
     store,
-    secret: process.env.SECRET,
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
