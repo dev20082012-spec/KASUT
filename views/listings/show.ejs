@@ -85,6 +85,17 @@
             </form>
         </div>
     </div>
+    <% } else { %>
+    <div class="col-6 offset-3 mt-3">
+        <div class="booking-card text-center">
+            <div class="booking-price-header justify-content-center">
+                <span class="booking-price">&#8377;<%= listing.price.toLocaleString("en-IN") %></span>
+                <span class="booking-per-night">/ night</span>
+            </div>
+            <p class="text-muted mb-3">Log in or create an account to book your stay.</p>
+            <a href="/login" class="btn booking-btn text-white text-decoration-none d-block">Log In to Reserve</a>
+        </div>
+    </div>
     <% } %>
 
     <script id="listingData" type="application/json">
@@ -152,6 +163,10 @@
             </div>
             <button class="btn btn-outline-dark">Submit</button>
         </form>
+        <% } else { %>
+        <div class="mt-3 p-3 border rounded bg-light">
+            <p class="mb-0 text-muted"><a href="/login" class="text-dark fw-bold">Log in</a> to leave a rating and review.</p>
+        </div>
         <% } %>
 
         <% if(listing.reviews.length) { %>
